@@ -10,6 +10,7 @@ class LocalPortfolioRepository implements PortfolioRepository {
 
 const _profile = Profile(
   name: 'Mostafa Hassan',
+  title: 'Senior Mobile Engineer',
   role: 'Senior Flutter Developer',
   company: 'MisMar',
   location: 'Cairo, Egypt',
@@ -24,6 +25,8 @@ const _profile = Profile(
   linkedInUrl: 'https://www.linkedin.com/in/mostafahassan8799/',
   gitHubUrl: 'https://github.com/mostafahassan8799',
   cvPath: 'Mostafa_Hassan_Flutter_Developer_CV.pdf',
+  photoAsset: 'assets/images/profile.jpg',
+  coverAsset: 'assets/images/cover.jpg',
   stats: [
     Stat('4+', 'years in production Flutter'),
     Stat('6', 'published apps'),
@@ -45,12 +48,22 @@ const _profile = Profile(
         'Dio-based API layer, push notifications, and background services.',
       ],
       stack: ['Flutter', 'Provider', 'Dio', 'FCM', 'Background Services'],
+      iconUrl: 'https://play-lh.googleusercontent.com/EeWiABto_IriBpd6x2aZvT6gTNWKrwHIAINq2zotGNj77gfPmzJGq_zV6hOC_ZdEmcIPNuFL0oL8H9iaPYstRw=w192-h192',
+      screenshots: [
+        'https://play-lh.googleusercontent.com/UfKXnj8B367ipuZ8eIR76KHkP6TuLAy89_hp3VCTy-N-vrGHeV1cHjjEMiPiGnWmZZjSYXtW85cpO1hmBokp=h480',
+        'https://play-lh.googleusercontent.com/vf_lFGkqtHJjGsv2XzzaRu5JESyoKIteMQkHua_Z3SsKa9kC4sYZwrStrbRySaj5woQaUDh5nUH39kKXd54J2g=h480',
+        'https://play-lh.googleusercontent.com/2ro3QEwolhDcbhPlBVUJawuK9ifJaDcMoGYBSU9shA4Dq0J3KPIKAYR5OcEzrQakjmiJHIBxDOAahYmv1CYb2w=h480',
+        'https://play-lh.googleusercontent.com/363kxiOXjNnl3dF45Gncn5dUdO0aMOeN19zjKEQMWVvSddIdyXWErzXqKfprZEz6CyJ0nxKQR6sRTJrL_EoV0g=h480',
+      ],
       links: [
         StoreLink(
           'Google Play',
-          'https://play.google.com/store/search?q=MisMar&c=apps',
+          'https://play.google.com/store/apps/details?id=sa.com.carx',
         ),
-        StoreLink('App Store', 'https://apps.apple.com/sa/search?term=MisMar'),
+        StoreLink(
+          'App Store',
+          'https://apps.apple.com/sa/app/mismar-%D9%85%D8%B3%D9%85%D8%A7%D8%B1/id1493302809',
+        ),
       ],
     ),
     Project(
@@ -64,6 +77,22 @@ const _profile = Profile(
         'Socket-based tracking and background services.',
       ],
       stack: ['WebSockets', 'Provider', 'FCM'],
+      iconUrl: 'https://play-lh.googleusercontent.com/jor_tH3nRno2ui9HrHVF75hoz7l9vxIsi_pRFDBzQ1FaQEDxUNoadcMmF8dLM7JOYlTI51OH9upPdeUq7rqNiW4=w192-h192',
+      screenshots: [
+        'https://play-lh.googleusercontent.com/9s_kP-8438GgjGoAQawnJQ-JESAM0kw9-W-0BVAr49ozgzyViEAea-64jBtoYSQ-CRZ_Bnjy7UmQSAmzMIJju5c=h480',
+        'https://play-lh.googleusercontent.com/7gJyJAYyAXLLr5RVTkpfSECT-RqjtUlBQUkh40FmpuBhcsmyS3EdSKq3ZlQy6GjrTCvLBEb-7IlBUQkJyWUUu7U=h480',
+        'https://play-lh.googleusercontent.com/1UsrERVkUBy86Mbq4ouQs3e_08bOxHi8LSknXwrQ-MaWe2f9zlNBnSPb_tgO2zFn4QV9mcShPBGOqUvI9tiOPA=h480',
+      ],
+      links: [
+        StoreLink(
+          'Google Play',
+          'https://play.google.com/store/apps/details?id=com.mismarapp.opsapp',
+        ),
+        StoreLink(
+          'App Store',
+          'https://apps.apple.com/sa/app/mismar-ops/id6461161680',
+        ),
+      ],
     ),
     Project(
       name: 'Light & Fast Drivers',
@@ -76,6 +105,18 @@ const _profile = Profile(
         'Background location and socket-based live tracking.',
       ],
       stack: ['Cubit', 'OpenStreetMap', 'WebSockets'],
+      iconUrl: 'https://play-lh.googleusercontent.com/Tl9KRdbKGfZCrgzizRjjGNvpBK4NjrKc75pruz6eG-Uw4jpAbQnp7ZJbm2JdR349mycm5EAXSGJhB4aWBmET=w192-h192',
+      screenshots: [
+        'https://play-lh.googleusercontent.com/ohF8uw2YMRgyBvRwcv7J2pv2m_Z-txerB6DVHfk9bwtxDbhedQ8wBDC4QRCT2UAvqGtH1Gjx348CSfpw9odQYw=h480',
+        'https://play-lh.googleusercontent.com/IwHmACZwwCxYrLw6WGIDvOSQu-FYDz2XFZgl_4bvT9UDqRReHXQIvjfDzgcdFmqGefNtb4EuspQhEtUpqm0c=h480',
+        'https://play-lh.googleusercontent.com/ibONlmf4W3V1FcSs6f52ZH_nSDNgbP2z_1FHN1-owuVajy-6LVCJLDlu3Tjg5-lcLbBo6RPlABFOIyZ-UiYz=h480',
+      ],
+      links: [
+        StoreLink(
+          'Google Play',
+          'https://play.google.com/store/apps/details?id=com.LightDriver.Egypt',
+        ),
+      ],
     ),
     Project(
       name: 'Light & Fast Stores',
@@ -88,6 +129,18 @@ const _profile = Profile(
         'Clean Architecture with a modular feature-based structure.',
       ],
       stack: ['Cubit', 'Clean Arch', 'REST', 'FCM'],
+      iconUrl: 'https://play-lh.googleusercontent.com/aWuxzOFti1g1VbMbcuqQtI0QBZDce8Ar5Azoi4k9wYxM_Khsb-yOeI0TdDgYZNxkMpeJqg1rY2VIhd_c8tVjQxc=w192-h192',
+      screenshots: [
+        'https://play-lh.googleusercontent.com/U_ap2hK6kJZfxxS1NUmXThsPI7ekhrKuW8U97cJtg8_5ST2vftdX9Na7RwgppY8m0E5CkeTISUWSlNRK_0wDpkc=h480',
+        'https://play-lh.googleusercontent.com/8PhOoOmfFGiuLGvlQ74xxjNs-E5QL2QPeA4Ix4NEEz6jIMa_yjimMJ07zkSI3p0S41n2S2QiqBUS8KHYmb1rbQ=h480',
+        'https://play-lh.googleusercontent.com/i-K7HCnm_p7-49MnuYra3AgVumu5hd5oOuB3VFGtI3tL5Vdss30alSHbG4y9hpcbw8_zknZzq77rrREMcOUGpA=h480',
+      ],
+      links: [
+        StoreLink(
+          'Google Play',
+          'https://play.google.com/store/apps/details?id=com.LightStore.Egypt',
+        ),
+      ],
     ),
     Project(
       name: 'Krafttopia Shop',
@@ -112,6 +165,42 @@ const _profile = Profile(
         'Appointments, patient records, and treatment plans.',
       ],
       stack: ['Agora', 'Fawaterk', 'FCM'],
+      iconUrl: 'https://play-lh.googleusercontent.com/EDYnZ2IV1lu_nrIyaY_3vjD6yr9FYq4ALiQvAOq8zPbDPmdL76MFOPiKSpOZSeryw6yHSIe2yYEEX2rmMHVSOA=w192-h192',
+      screenshots: [
+        'https://play-lh.googleusercontent.com/YyuPDGr3XjHVcT6LT-qzpLSIEUw_XE0mF-iwWxRsOxfkt8MC1EXwn3mnBmCKFSmpn3auIOJUmFnqdbnkeP0U=h480',
+        'https://play-lh.googleusercontent.com/jAA38c9fEbRcshts_5ls_RMai-X6HSEkAlE6m24wiBMjj_oHZB6A6jSr1OZXD-4X-n7pPZxME6ivHJ3qdj37gg=h480',
+        'https://play-lh.googleusercontent.com/r63mwAx5t_2jFlxuIlDza7OoElRJGct_38pBa1njQO5wtGWI7xBS5sELf6qtmQO71h028AhEX1_gviwEXden7w=h480',
+      ],
+      links: [
+        StoreLink(
+          'Google Play',
+          'https://play.google.com/store/apps/details?id=com.hayaatak.ershaad.specialist',
+        ),
+      ],
+    ),
+    Project(
+      name: 'Dinamo',
+      category: 'Ride-hailing app · Egypt',
+      initials: 'D',
+      gradient: [0xFFFACC15, 0xFFCA8A04],
+      metrics: ['50K+ downloads', 'Live tracking', 'Wallet payments'],
+      highlights: [
+        'Real-time location tracking, ride matching, and in-app navigation.',
+        'Google Maps routing, ride history, payments, and push notifications.',
+      ],
+      stack: ['Google Maps', 'Real-time', 'FCM'],
+      iconUrl: 'https://play-lh.googleusercontent.com/azfJz4l6P6iVfZpjABibsn7F5IH8Sq95xUwoRIlsuP-NuEKoF4DdTy84H9lsxoq2prOoJBrdB6GgMgy4lOk91Q=w192-h192',
+      screenshots: [
+        'https://play-lh.googleusercontent.com/O3JLfbXZt1BfzgJ8JS6Qtb-W-7rqSUEuYT_oheH8UeM88KhhAmr59g6xbe6R0hb-6NPr8ORqsaznijVLfLdVT7w=h480',
+        'https://play-lh.googleusercontent.com/XpzP31Prq6V9Obf7_6S98hKxX8PDPMlkZXHwTRN6vUWUki7osEXNNyWQLSitJObALb1vObUyDYmBs7mY0r9q2-Q=h480',
+        'https://play-lh.googleusercontent.com/0f2c5b3HyBVOuQAjdTPuSLTPU9nofd_Xa_5me3CxfsqmL-a-g8PqHwGzpU3jTPFuzX942wLUBOllAeZeuASU=h480',
+      ],
+      links: [
+        StoreLink(
+          'Google Play',
+          'https://play.google.com/store/apps/details?id=com.starbugs.wasalni_rider',
+        ),
+      ],
     ),
   ],
   jobs: [

@@ -139,7 +139,11 @@ class PillButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[Icon(icon, size: 18), const SizedBox(width: 8)],
-          Text(label),
+          // Flexible + ellipsis keeps long labels (e.g. the email) from
+          // overflowing on narrow phones.
+          Flexible(
+            child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+          ),
         ],
       ),
     );

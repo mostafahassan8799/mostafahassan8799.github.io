@@ -47,7 +47,12 @@ class _HomePageState extends State<HomePage> {
     final profile = context.read<PortfolioRepository>().getProfile();
 
     return Scaffold(
-      appBar: NavBar(sections: _sections, onNavigate: _scrollTo),
+      appBar: NavBar(
+        name: profile.name,
+        title: profile.title,
+        sections: _sections,
+        onNavigate: _scrollTo,
+      ),
       body: SelectionArea(
         child: SingleChildScrollView(
           child: Column(

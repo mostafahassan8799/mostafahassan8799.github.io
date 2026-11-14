@@ -255,26 +255,228 @@ class _HoverCardState extends State<HoverCard> {
   }
 }
 
-/// One-shot fade + slide-up entrance animation.
+/// Fades and slides its child in the first time it scrolls into view.
+///
+/// Honors the platform "reduce motion" setting by showing content instantly.
+class Reveal extends StatefulWidget {
+  const Reveal({
+    super.key,
+    required this.child,
+    this.delay = Duration.zero,
+    this.offsetY = 28,
+  });
+
+  final Widget child;
+  final Duration delay;
+  final double offsetY;
+
+  @override
+  State<Reveal> createState() => _RevealState();
+}
+
+class _RevealState extends State<Reveal> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 700),
+  );
+  late final Animation<double> _curve =
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
+  ScrollPosition? _position;
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _controller.value = 1;
+      _started = true;
+      return;
+    }
+    _position?.removeListener(_check);
+    _position = Scrollable.maybeOf(context)?.position;
+    _position?.addListener(_check);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _check());
+  }
+
+  void _check() {
+    if (_started || !mounted) return;
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.attached) return;
+    final top = box.localToGlobal(Offset.zero).dy;
+    if (top < MediaQuery.sizeOf(context).height * 0.92) {
+      _started = true;
+      _position?.removeListener(_check);
+      Future.delayed(widget.delay, () {
+        if (mounted) _controller.forward();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _position?.removeListener(_check);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _curve,
+      child: widget.child,
+      builder: (context, child) => Opacity(
+        opacity: _curve.value,
+        child: Transform.translate(
+          offset: Offset(0, widget.offsetY * (1 - _curve.value)),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+/// Section-level entrance animation.
 class FadeIn extends StatelessWidget {
   const FadeIn({super.key, required this.child});
 
   final Widget child;
 
   @override
+  Widget build(BuildContext context) => Reveal(child: child);
+}
+
+/// Counts a stat like "100K+" up from zero when it appears.
+class AnimatedCounter extends StatefulWidget {
+  const AnimatedCounter(this.value, {super.key, this.style});
+
+  final String value;
+  final TextStyle? style;
+
+  @override
+  State<AnimatedCounter> createState() => _AnimatedCounterState();
+}
+
+class _AnimatedCounterState extends State<AnimatedCounter>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1600),
+  );
+  late final RegExpMatch? _match =
+      RegExp(r'^(\d+)(.*)$').firstMatch(widget.value);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context) || _match == null) {
+      _controller.value = 1;
+    } else if (!_controller.isAnimating && _controller.value == 0) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (mounted) _controller.forward();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0, end: 1),
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeOut,
-      builder: (context, value, child) => Opacity(
-        opacity: value,
-        child: Transform.translate(
-          offset: Offset(0, 16 * (1 - value)),
-          child: child,
-        ),
+    final match = _match;
+    if (match == null) return GradientText(widget.value, style: widget.style);
+    final target = int.parse(match.group(1)!);
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final t = Curves.easeOutExpo.transform(_controller.value);
+        return GradientText(
+          '${(target * t).round()}${match.group(2)}',
+          style: widget.style,
+        );
+      },
+    );
+  }
+}
+
+/// Infinite, gentle back-and-forth animation value (0..1). Stays at 0 when
+/// the platform asks for reduced motion (and therefore in tests).
+class LoopingValue extends StatefulWidget {
+  const LoopingValue({
+    super.key,
+    required this.duration,
+    required this.builder,
+    this.child,
+  });
+
+  final Duration duration;
+  final Widget Function(BuildContext context, double t, Widget? child) builder;
+  final Widget? child;
+
+  @override
+  State<LoopingValue> createState() => _LoopingValueState();
+}
+
+class _LoopingValueState extends State<LoopingValue>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: widget.duration);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _controller.stop();
+    } else if (!_controller.isAnimating) {
+      _controller.repeat(reverse: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      child: widget.child,
+      builder: (context, child) => widget.builder(
+        context,
+        Curves.easeInOut.transform(_controller.value),
+        child,
       ),
-      child: child,
+    );
+  }
+}
+
+/// Gradient text whose colors slowly sweep across it.
+class ShimmerGradientText extends StatelessWidget {
+  const ShimmerGradientText(this.text, {super.key, this.style});
+
+  final String text;
+  final TextStyle? style;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return LoopingValue(
+      duration: const Duration(seconds: 4),
+      child: Text(text, style: style),
+      builder: (context, t, child) => ShaderMask(
+        blendMode: BlendMode.srcIn,
+        shaderCallback: (bounds) => LinearGradient(
+          begin: Alignment(-1 - t, 0),
+          end: Alignment(1 + t, 0),
+          colors: [palette.accent, palette.accentAlt, palette.accent],
+          stops: [0, 0.5 + 0.3 * (t - 0.5), 1],
+        ).createShader(Offset.zero & bounds.size),
+        child: child,
+      ),
     );
   }
 }
@@ -316,7 +518,10 @@ class ResponsiveGrid extends StatelessWidget {
                   final span = (spanFor?.call(i) ?? 1).clamp(1, columns);
                   return cell * span + spacing * (span - 1);
                 }(),
-                child: itemBuilder(context, i),
+                child: Reveal(
+                  delay: Duration(milliseconds: 90 * (i % columns)),
+                  child: itemBuilder(context, i),
+                ),
               ),
           ],
         );

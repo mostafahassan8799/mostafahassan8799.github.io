@@ -36,27 +36,7 @@ class ProjectCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 52,
-                height: 52,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: project.gradient.map(Color.new).toList(),
-                  ),
-                ),
-                child: Text(
-                  project.initials,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 19,
-                  ),
-                ),
-              ),
+              _AppIcon(project: project),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
@@ -84,6 +64,10 @@ class ProjectCard extends StatelessWidget {
             runSpacing: 8,
             children: [for (final m in project.metrics) MetricChip(m)],
           ),
+          if (project.screenshots.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            _Screenshots(urls: project.screenshots),
+          ],
           const SizedBox(height: 14),
           for (final h in project.highlights) _Bullet(h),
           const SizedBox(height: 10),
@@ -149,6 +133,88 @@ class _Bullet extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Store icon with a gradient + initials fallback.
+class _AppIcon extends StatelessWidget {
+  const _AppIcon({required this.project});
+
+  final Project project;
+
+  @override
+  Widget build(BuildContext context) {
+    final fallback = Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: project.gradient.map(Color.new).toList(),
+        ),
+      ),
+      child: Text(
+        project.initials,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w800,
+          fontSize: 19,
+        ),
+      ),
+    );
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(14),
+      child: SizedBox(
+        width: 52,
+        height: 52,
+        child: project.iconUrl == null
+            ? fallback
+            : Image.network(
+                project.iconUrl!,
+                fit: BoxFit.cover,
+                // Store CDNs don't send CORS headers; fall back to an <img>
+                // element on web instead of failing.
+                webHtmlElementStrategy: WebHtmlElementStrategy.fallback,
+                errorBuilder: (_, __, ___) => fallback,
+              ),
+      ),
+    );
+  }
+}
+
+/// Horizontal strip of store screenshots.
+class _Screenshots extends StatelessWidget {
+  const _Screenshots({required this.urls});
+
+  final List<String> urls;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return SizedBox(
+      height: 220,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: urls.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 10),
+        itemBuilder: (context, i) => Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: palette.border),
+            color: palette.surfaceAlt,
+          ),
+          clipBehavior: Clip.antiAlias,
+          width: 102,
+          child: Image.network(
+            urls[i],
+            fit: BoxFit.cover,
+            webHtmlElementStrategy: WebHtmlElementStrategy.fallback,
+            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+          ),
+        ),
       ),
     );
   }

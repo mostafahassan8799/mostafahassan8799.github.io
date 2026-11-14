@@ -4,7 +4,9 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/link_launcher.dart';
 import '../../domain/entities.dart';
 import 'common.dart';
-import 'hero_section.dart' show kSourceUrl;
+
+const kSourceUrl =
+    'https://github.com/mostafahassan8799/mostafahassan8799.github.io';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key, required this.profile});
@@ -19,19 +21,23 @@ class ContactSection extends StatelessWidget {
     return ContentWidth(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 72),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(
-            vertical: 48,
-            horizontal: isNarrow ? 20 : 32,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [palette.accent, palette.accentAlt],
+        child: LoopingValue(
+          duration: const Duration(seconds: 6),
+          builder: (context, t, child) => Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(
+              vertical: 48,
+              horizontal: isNarrow ? 20 : 32,
             ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: LinearGradient(
+                begin: Alignment(-1 + t, -1),
+                end: Alignment(1 - t, 1),
+                colors: [palette.accent, palette.accentAlt],
+              ),
+            ),
+            child: child,
           ),
           child: Column(
             children: [

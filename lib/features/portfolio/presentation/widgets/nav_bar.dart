@@ -6,8 +6,16 @@ import '../cubit/theme_cubit.dart';
 import 'common.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
-  const NavBar({super.key, required this.sections, required this.onNavigate});
+  const NavBar({
+    super.key,
+    required this.name,
+    required this.title,
+    required this.sections,
+    required this.onNavigate,
+  });
 
+  final String name;
+  final String title;
   final List<String> sections;
   final ValueChanged<String> onNavigate;
 
@@ -30,27 +38,34 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         child: ContentWidth(
           child: Row(
             children: [
-              InkWell(
-                onTap: () => onNavigate('top'),
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Mostafa',
-                    children: [
-                      TextSpan(
-                        text: '.',
-                        style: TextStyle(color: palette.accent),
-                      ),
-                      const TextSpan(text: 'dev'),
-                    ],
-                  ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                    letterSpacing: -0.4,
+              Expanded(
+                child: InkWell(
+                  onTap: () => onNavigate('top'),
+                  child: Text.rich(
+                    TextSpan(
+                      text: name,
+                      children: [
+                        if (MediaQuery.sizeOf(context).width >= 520)
+                          TextSpan(
+                            text: '  ·  $title',
+                            style: TextStyle(
+                              color: palette.muted,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                      ],
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                      letterSpacing: -0.3,
+                    ),
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 12),
               if (showLinks)
                 for (final section in sections)
                   TextButton(

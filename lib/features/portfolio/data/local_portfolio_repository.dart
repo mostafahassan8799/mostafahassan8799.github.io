@@ -281,6 +281,89 @@ const _profile = Profile(
             'download app.',
       ],
     ),
+    CaseStudy(
+      headline: 'play → win',
+      title: 'Shipping the Ramadan Game',
+      paragraphs: [
+        'A seasonal engagement feature inside MisMar: users play during '
+            'Ramadan and win discount coupons they can use on car services.',
+        'The challenge was a hard deadline and a short live window. The game '
+            'had to be self-contained so it could be switched on and off from '
+            'the backend, and rewards had to be granted server-side so a coupon '
+            'could not be claimed twice or spoofed from the client.',
+        'Result: a time-boxed campaign shipped on schedule to a 100K+ user '
+            'base, turning a seasonal moment into service bookings.',
+      ],
+    ),
+    CaseStudy(
+      headline: '1 → N steps',
+      title: 'Car Selling & multi-step service flows',
+      paragraphs: [
+        'Built the Car Selling services and multi-step booking workflows in '
+            'MisMar with Provider and Dio.',
+        'Long forms break in subtle ways: state lost on back navigation, '
+            'validation spread across screens, and widgets updating after they '
+            'are unmounted. I kept each flow’s state in one place, validated '
+            'per step, and guarded async work against disposed screens.',
+        'Result: flows users can leave and resume without losing input, and '
+            'one less class of crashes in Sentry.',
+      ],
+    ),
+    CaseStudy(
+      headline: '4 parties',
+      title: 'Real-time coordination in MisMar Ops',
+      paragraphs: [
+        'MisMar Ops keeps clients, workshops, towing, and spare-parts '
+            'providers in sync on the same job.',
+        'Socket-based tracking plus background services meant handling '
+            'reconnects, stale events, and app lifecycle changes without '
+            'showing operators outdated status. Push notifications cover the '
+            'moments the app is not in the foreground.',
+        'Result: a 4.6★ operations app, plus 6 production crashes fixed, '
+            'including a live-location crash and a missing export guard.',
+      ],
+    ),
+    CaseStudy(
+      headline: 'GPS → socket',
+      title: 'Live tracking that survives the background',
+      paragraphs: [
+        'For Light & Fast Drivers and Dinamo, the driver’s location had to '
+            'keep streaming while the app was minimized or the screen was off.',
+        'I combined background location services with WebSockets, throttled '
+            'updates to protect battery and bandwidth, and reconnected '
+            'automatically after network drops, rendering routes on '
+            'OpenStreetMap and Google Maps.',
+        'Result: reliable live order and ride tracking, including in a 50K+ '
+            'download ride-hailing app.',
+      ],
+    ),
+    CaseStudy(
+      headline: '3 stores',
+      title: 'Short-video feed shipped to Play, App Store & AppGallery',
+      paragraphs: [
+        'Krafttopia Shop needed a TikTok-style video feed with a custom camera '
+            'UI, released on Google Play, the App Store, and Huawei AppGallery.',
+        'Video feeds leak memory fast, so players are created and disposed '
+            'as the user scrolls. Huawei devices have no Google services, so I '
+            'integrated Petal Maps, and a CI/CD pipeline produced builds for '
+            'all three stores.',
+        'Result: one Flutter codebase, three storefronts, and repeatable '
+            'releases instead of manual builds.',
+      ],
+    ),
+    CaseStudy(
+      headline: 'call → pay',
+      title: 'Telehealth calls and payments in Ershaad',
+      paragraphs: [
+        'Doctor-patient video and voice calls with Agora, paid sessions with '
+            'Fawaterk, plus appointments, patient records, and treatment plans.',
+        'Calls must handle permissions, poor networks, and the other side '
+            'dropping; payments must handle users leaving mid-checkout. Both '
+            'flows were built around explicit states so a session never starts '
+            'unpaid or gets charged twice.',
+        'Result: a working telehealth platform live on Google Play.',
+      ],
+    ),
   ],
   skills: [
     SkillGroup('Core', ['Dart', 'Flutter', 'Java (Android)']),

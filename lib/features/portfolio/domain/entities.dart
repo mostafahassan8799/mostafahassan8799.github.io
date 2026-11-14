@@ -5,6 +5,7 @@ library;
 class Profile {
   const Profile({
     required this.name,
+    required this.title,
     required this.role,
     required this.company,
     required this.location,
@@ -20,9 +21,16 @@ class Profile {
     required this.caseStudies,
     required this.skills,
     required this.education,
+    required this.photoAsset,
+    required this.coverAsset,
   });
 
   final String name;
+
+  /// Professional title shown next to the name (e.g. "Senior Mobile Engineer").
+  final String title;
+
+  /// Current job title at [company].
   final String role;
   final String company;
   final String location;
@@ -38,6 +46,8 @@ class Profile {
   final List<CaseStudy> caseStudies;
   final List<SkillGroup> skills;
   final String education;
+  final String photoAsset;
+  final String coverAsset;
 }
 
 class Stat {
@@ -63,6 +73,8 @@ class Project {
     required this.metrics,
     required this.highlights,
     required this.stack,
+    this.iconUrl,
+    this.screenshots = const [],
     this.links = const [],
     this.featured = false,
   });
@@ -76,6 +88,10 @@ class Project {
   final List<String> metrics;
   final List<String> highlights;
   final List<String> stack;
+
+  /// Store icon; falls back to [initials] on a gradient if it fails to load.
+  final String? iconUrl;
+  final List<String> screenshots;
   final List<StoreLink> links;
   final bool featured;
 }

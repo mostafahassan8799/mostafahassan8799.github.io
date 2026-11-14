@@ -10,6 +10,11 @@ void main() {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
+    // Looping animations are disabled under "reduce motion", which keeps
+    // pumpAndSettle deterministic.
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
     await tester.pumpWidget(const PortfolioApp(useGoogleFonts: false));
     await tester.pumpAndSettle();
   }

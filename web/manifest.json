@@ -1,0 +1,11 @@
+{
+  "name": "Mostafa Hassan | Senior Flutter Developer",
+  "short_name": "Mostafa Hassan",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0A0F1A",
+  "theme_color": "#0277D6",
+  "description": "Senior Flutter Developer portfolio built with Flutter Web.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false
+}

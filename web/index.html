@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mostafa Hassan - Senior Flutter Developer. 4+ years shipping production apps: real-time tracking, wallets & payments, Bloc and Clean Architecture. 6 shipped apps, 100K+ downloads.">
+  <meta name="theme-color" content="#0A0F1A">
+
+  <!-- Social previews (LinkedIn, WhatsApp, X) -->
+  <meta property="og:title" content="Mostafa Hassan | Senior Flutter Developer">
+  <meta property="og:description" content="6 shipped apps · 100K+ downloads · Real-time tracking, wallets & payments. This portfolio is built with Flutter.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mostafahassan8799.github.io/">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Mostafa Hassan">
+
+  <title>Mostafa Hassan | Senior Flutter Developer</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #0A0F1A; }
+    #loader {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 18px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: #94A0B8; transition: opacity .4s ease;
+    }
+    #loader b { color: #E8EDF6; font-size: 20px; letter-spacing: -.02em; }
+    #loader b span { color: #4FB3FF; }
+    .bar { width: 160px; height: 3px; border-radius: 3px; background: #1F2A3D; overflow: hidden; }
+    .bar::after {
+      content: ""; display: block; width: 40%; height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, #4FB3FF, #54C5F8);
+      animation: slide 1.1s ease-in-out infinite;
+    }
+    @keyframes slide { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+    @media (prefers-reduced-motion: reduce) { .bar::after { animation: none; width: 100%; } }
+  </style>
+</head>
+<body>
+  <div id="loader" aria-live="polite">
+    <b>Mostafa<span>.</span>dev</b>
+    <div class="bar"></div>
+    <small>Loading a portfolio built with Flutter…</small>
+  </div>
+
+  <!-- Readable fallback for crawlers and no-JS visitors -->
+  <noscript>
+    <h1>Mostafa Hassan - Senior Flutter Developer</h1>
+    <p>4+ years shipping production Flutter apps on iOS, Android and Huawei AppGallery.
+      Real-time tracking, wallets &amp; payments, Bloc/Cubit, Provider and Clean Architecture.
+      MisMar app: 100K+ downloads, 4.1★ from 16K ratings.</p>
+    <p>Contact: mostafahassan8799@gmail.com ·
+      <a href="https://www.linkedin.com/in/mostafahassan8799/">LinkedIn</a> ·
+      <a href="https://github.com/mostafahassan8799">GitHub</a> ·
+      <a href="Mostafa_Hassan_Flutter_Developer_CV.pdf">CV (PDF)</a></p>
+  </noscript>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('loader');
+      if (!el) return;
+      el.style.opacity = '0';
+      setTimeout(function () { el.remove(); }, 400);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
